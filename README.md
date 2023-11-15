@@ -49,6 +49,11 @@ Procesul se finalizează atunci când receptorul trimite pachetul PUBCOMP înapo
 
 În cadrul pachetului CONNECT, un client care se conectează are posibilitatea să configureze un interval de expirare a sesiunii în secunde. Acest interval determină perioada în care brokerul menține informațiile referitoare la sesiunea respectivului client după ce acesta se deconectează. Atunci când intervalul de expirare a sesiunii este setat la 0 și pachetul CONNECT nu conține o valoare de expirare, informațiile referitoare la sesiune sunt șterse imediat ce conexiunea la rețea a clientului se închide.
 
+## Schema MQTT
+
+![370264999_1269301897091535_5229710338211428238_n](https://github.com/TUIASI-AC-IoT/proiectrcp2023-echipa-4-2023/assets/99644342/efdfaaa1-da5d-4a6a-aa7d-0ea71a1aa982)
+
+
 ## Bibliografie
 
 - https://mqtt.org/?fbclid=IwAR3TXXPFza54hpk1keqAlGLtGgRCniL2mRXaQQLYrKpr7RlMIJOSEABWljM
