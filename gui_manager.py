@@ -29,8 +29,7 @@ class GUIManager:
         self.chat_box.insert(tk.END, message)
 
     def check_user(self, name, password):
-        # Add your check_user implementation
-        return True  # Replace with your actual implementation
+        return True  
 
     def quit_server(self):
         self.server.quit_server()
