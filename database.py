@@ -20,9 +20,3 @@ class Database:
         if (username, password) in self.users:
             return True
         return False
-
-
-d = Database()
-
-for i in range(0, len(d.users)):
-    print (d.users[i])
