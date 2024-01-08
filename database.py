@@ -1,8 +1,28 @@
-from server import Server
-from gui_manager import GUIManager
+import json
 
-if __name__ == '__main__':
-    server = Server()
-    gui_manager = GUIManager(server)
-    server.run()
-    gui_manager.run()
+
+class Database:
+    def __init__(self):
+        self.users = []
+        database_path = r"D:\Git\proiectrcp2023-echipa-4-2023\package.json"
+
+        with open(database_path, 'r') as file:
+            data = json.load(file)
+
+        credentials = data.get('credentials', [])
+
+        for user in credentials:
+            username = user.get('username')
+            password = user.get('password')
+            self.users.append((username, password))
+
+    def check_user(self, username, password):
+        if (username, password) in self.users:
+            return True
+        return False
+
+
+d = Database()
+
+for i in range(0, len(d.users)):
+    print (d.users[i])
