@@ -2,6 +2,8 @@
 import socket
 import threading
 import time
+from decoder import decoder
+from encoder import *
 
 class Server:
 
@@ -14,33 +16,32 @@ class Server:
         self.clients = []
         self.server_on = False
         self.count = 0
+        #self.encode=encoder()
 
     def timer(self, conn, addr):
         while True:
             time.sleep(1)
             self.count += 1
             if self.count >= 10:
+                conn.send(generate_disconnect_packet())
                 conn.close()
+                break
 
             timer_message = f"Timer for client {addr}: {self.count} seconds"
             self.gui_manager.update_chat_box(timer_message + '\n')
 
     def comm_thread(self, conn, addr):
-        conn.send(b"Introduce your login credentials")
-        name = str(conn.recv(1024), encoding='ascii')
-        password = str(conn.recv(1024), encoding='ascii')
-        if self.gui_manager.check_user(name, password):
-            conn.send(b'ok')
+        val = conn.recv(1024)
+        username, password = (decoder.decode_connect(val))
+        if (username, password) == ('Cosmin', 'Suna'):
+            conn.send(generate_connack_packet())
+            print(generate_connack_packet())
             timer_thread = threading.Thread(target=self.timer, args=(conn, addr))
             timer_thread.start()
 
             while True:
                 data = conn.recv(1024)
                 self.count = 0
-                message = str(addr) + ' Sent ' + str(data, encoding="ascii")
-                self.gui_manager.update_chat_box(message + '\n')
-                conn.sendall(bytes(message, encoding="ascii"))
-
             self.gui_manager.update_chat_box(f"The client {addr} has closed the connection\n")
             conn.close()
         else:
