@@ -1,6 +1,7 @@
 # gui_manager.py
 import tkinter as tk
 from tkinter import scrolledtext
+from encoder import generate_disconnect_packet
 
 class GUIManager:
     def __init__(self, server):
@@ -11,10 +12,10 @@ class GUIManager:
         self.chat_box = scrolledtext.ScrolledText(self.gui)
         self.chat_box.pack()
 
-        self.button1 = tk.Button(self.gui, text="Button 1", command=lambda: print(1))
-        self.button2 = tk.Button(self.gui, text="Button 2", command=lambda: print(2))
-        self.button3 = tk.Button(self.gui, text="Button 3", command=lambda: print(3))
-        self.button4 = tk.Button(self.gui, text="Button 4", command=lambda: print(4))
+        self.button1 = tk.Button(self.gui, text="Topic History", command=self.topics_subcribed)
+        self.button2 = tk.Button(self.gui, text="Visualize Messages", command=self.last10_mesajes)
+        self.button3 = tk.Button(self.gui, text="Visualize Clients  History", command=lambda: print(3))
+        self.button4 = tk.Button(self.gui, text="Visualize Qos Messages", command=self.qos_print)
         self.button5 = tk.Button(self.gui, text="Quit", command=self.quit_server)
 
         self.button1.pack()
@@ -28,11 +29,15 @@ class GUIManager:
     def update_chat_box(self, message):
         self.chat_box.insert(tk.END, message)
 
-    def check_user(self, name, password):
-        return True  
-
     def quit_server(self):
         self.server.quit_server()
+    def qos_print(self):
+        self.server.print_qos_messages()
+    def last10_mesajes(self):
+        self.server.visualize_mesages()
+
+    def topics_subcribed(self):
+        self.server.visualize_topics()
 
     def destroy_gui(self):
         self.gui.destroy()
